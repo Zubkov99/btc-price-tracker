@@ -5,37 +5,17 @@ import { LoggerModule } from 'nestjs-pino';
 import { ApiModule } from './api/api.module';
 import { CommonModule } from './common/common.module';
 import { validate } from './common/config/validate-config-env';
+import { createPinoLoggerOptions } from './common/logger.factory';
 import { PriceModule } from './price/price.module';
 import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
     LoggerModule.forRootAsync({
+      imports: [],
       providers: [],
-      imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const isDev = configService.get<string>('NODE_ENV') === 'development';
-        const logLevel = configService.get<string>('LOG_LEVEL') ?? 'info';
-
-        const pinoHttpOptions = {
-          level: logLevel,
-          ...(isDev && {
-            transport: {
-              target: 'pino-pretty',
-              options: {
-                colorize: true,
-                translateTime: 'yyyy-mm-dd HH:MM:ss',
-                ignore: 'pid,hostname',
-              },
-            },
-          }),
-        };
-
-        return {
-          pinoHttp: pinoHttpOptions,
-        };
-      },
+      useFactory: createPinoLoggerOptions,
     }),
     ConfigModule.forRoot({
       isGlobal: true,
