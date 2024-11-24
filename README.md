@@ -65,7 +65,6 @@
    ```bash
    curl http://localhost:3000/api/v1/price
 
-
 ### Running Tests
 1. **Ensure all dependencies are installed:**
     ```bash
@@ -92,12 +91,14 @@
 
 Configure the application using the .env file. Below are the key environment variables:
 
-| Variable         | Description                                 | Default Value            |
-|------------------|---------------------------------------------|--------------------------|
-| APP_PORT         | Port on which the application will run      | 0.0.0.0                  |
-| APP_HOST         | Host on which the application will run      | 3000                     |
-| COMMISSION_RATE  | Commission rate applied to prices           | 0.01                     |
-| BINANCE_API_URL  |URL of the Binance API                       |https://api.binance.com   |
+| Variable        | Description                                     | Default Value           |
+|-----------------|-------------------------------------------------|-------------------------|
+| APP_PORT        | Port on which the application will run          | 0.0.0.0                 |
+| APP_HOST        | Host on which the application will run          | 3000                    |
+| COMMISSION_RATE | Commission rate applied to prices               | 0.01                    |
+| BINANCE_API_URL | URL of the Binance API                          | https://api.binance.com |
+| NODE_ENV        | The environment in which the project is running | -                       |
+| LOG_LVL         | The logging level of the system logs            | INFO                    |
 
 ## Metrics
 Metrics are available at the /metrics endpoint in Prometheus format.

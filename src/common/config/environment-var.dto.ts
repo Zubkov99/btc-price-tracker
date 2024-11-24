@@ -18,6 +18,10 @@ export class EnvironmentVarDTO {
   @IsNumberString()
   COMMISSION_RATE: string;
 
+  @IsString()
+  @IsOptional()
+  LOG_LEVEL: string;
+
   @IsOptional()
   @IsIn(['development', 'production', 'staging', 'test'])
   NODE_ENV?: string;

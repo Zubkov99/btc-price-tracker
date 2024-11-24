@@ -16,7 +16,7 @@ import { TasksModule } from './tasks/tasks.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const isDev = configService.get<string>('NODE_ENV') === 'development';
-        const logLevel = configService.get<string>('LOG_LEVEL') || 'info';
+        const logLevel = configService.get<string>('LOG_LEVEL') ?? 'info';
 
         const pinoHttpOptions = {
           level: logLevel,
