@@ -10,8 +10,6 @@ import { IBookTickerPrice } from './types';
 
 @Injectable()
 export class BinanceService {
-  private readonly baseUrl: string;
-
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
@@ -19,7 +17,6 @@ export class BinanceService {
     private readonly logger: PinoLogger,
     private readonly outgoingHttpInterceptor: OutgoingHttpInterceptor
   ) {
-    this.baseUrl = this.configService.get<string>('BINANCE_API_URL') ?? 'https://api.binance.com';
     const axiosRef = this.httpService.axiosRef;
     axiosRef.interceptors.request.use(this.outgoingHttpInterceptor.interceptRequest.bind(this.outgoingHttpInterceptor));
     axiosRef.interceptors.response.use(
@@ -29,7 +26,7 @@ export class BinanceService {
   }
 
   public async getTickerPrice(symbol: string): Promise<IBookTickerPrice> {
-    const url = `${this.baseUrl}/api/v3/ticker/bookTicker`;
+    const url = '/api/v3/ticker/bookTicker';
     const response: AxiosResponse<IBookTickerPrice> = await this.httpService.axiosRef.get(url, {
       params: { symbol },
     });
