@@ -1,10 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiServiceUnavailableResponse, ApiTags } from '@nestjs/swagger';
 
 import { PriceService } from '../price/price.service';
 
 import { PriceDTO } from './api.dto';
+import { ErrorResponseSchema } from './schemas/error-response.schema';
 
+@ApiTags('API')
 @Controller('api')
 export class ApiController {
   constructor(private readonly priceService: PriceService) {}
@@ -15,6 +17,10 @@ export class ApiController {
   @ApiOkResponse({
     description: 'In response, we send the price of bitcoin at the moment',
     type: PriceDTO,
+  })
+  @ApiServiceUnavailableResponse({
+    description: "Internal Server Error. Couldn't provide the price at the moment.",
+    type: ErrorResponseSchema,
   })
   @Get('price')
   public async getPrice(): Promise<PriceDTO> {

@@ -44,7 +44,7 @@ describe('PriceService', () => {
         {
           provide: ConfigService,
           useValue: {
-            get: jest.fn().mockReturnValue('0.0001'), // 0.01%
+            get: jest.fn().mockReturnValue('0.0001'),
           },
         },
         {
