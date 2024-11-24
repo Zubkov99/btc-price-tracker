@@ -4,11 +4,11 @@ import { BigNumber } from 'bignumber.js';
 import { getLoggerToken, PinoLogger } from 'nestjs-pino';
 
 import { CacheService } from '../cache/cache.service';
+import { IBookTickerPrice } from '../gateways/binance/binance.interface';
 import { BinanceService } from '../gateways/binance/binance.service';
-import { IBookTickerPrice } from '../gateways/binance/types';
 
+import { IPrice } from './price.interface';
 import { PriceService } from './price.service';
-import { IPrice } from './types';
 
 describe('PriceService', () => {
   let service: PriceService;

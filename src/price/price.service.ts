@@ -6,7 +6,7 @@ import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 import { CacheService } from '../cache/cache.service';
 import { BinanceService } from '../gateways/binance/binance.service';
 
-import { IPrice } from './types';
+import { IPrice } from './price.interface';
 
 @Injectable()
 export class PriceService {

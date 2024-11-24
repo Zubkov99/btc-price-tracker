@@ -6,7 +6,7 @@ import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 
 import { OutgoingHttpInterceptor } from '../../common/interceptors/outgoing-http.interceptor';
 
-import { IBookTickerPrice } from './types';
+import { IBookTickerPrice } from './binance.interface';
 
 @Injectable()
 export class BinanceService {
