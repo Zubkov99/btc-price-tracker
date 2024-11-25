@@ -15,7 +15,7 @@ export class ApiController {
     summary: 'The endpoint exists to get up-to-date information about the price of bitcoin',
   })
   @ApiOkResponse({
-    description: 'In response, we send the price of bitcoin at the moment',
+    description: 'The current price of Bitcoin',
     type: PriceDTO,
   })
   @ApiServiceUnavailableResponse({
