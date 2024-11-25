@@ -6,7 +6,7 @@ import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 import { CacheService } from '../cache/cache.service';
 import { BinanceService } from '../gateways/binance/binance.service';
 
-import { IPrice } from './price.interface';
+import { ICalculatePrice, IPrice } from './price.interface';
 
 @Injectable()
 export class PriceService {
@@ -42,10 +42,13 @@ export class PriceService {
       });
       return;
     }
-    const adjustedBid = bidPrice.multipliedBy(new BigNumber(1).minus(this.commissionRate));
-    const adjustedAsk = askPrice.multipliedBy(new BigNumber(1).plus(this.commissionRate));
-    const midPrice = adjustedBid.plus(adjustedAsk).div(2).toString();
+    const price = this.calculatePrice({ bidPrice, askPrice, commissionRate: new BigNumber(this.commissionRate) });
+    this.cacheService.set(this.TRACKED_TICKER, { price });
+  }
 
-    this.cacheService.set(this.TRACKED_TICKER, { price: midPrice });
+  private calculatePrice({ bidPrice, askPrice, commissionRate }: ICalculatePrice): string {
+    const adjustedBid = bidPrice.multipliedBy(new BigNumber(1).minus(commissionRate));
+    const adjustedAsk = askPrice.multipliedBy(new BigNumber(1).plus(commissionRate));
+    return adjustedBid.plus(adjustedAsk).div(2).toString();
   }
 }
