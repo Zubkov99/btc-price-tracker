@@ -44,7 +44,7 @@
    
 3. **Run the Docker container:**
    ```bash
-   docker run -d -p 3000:3000 --name btc-price-tracker btc-price-tracker
+   docker run -d -p 3000:3000  --env-file .env --name btc-price-tracker btc-price-tracker
 
 4. **Verify the service is running:**
    ```bash
